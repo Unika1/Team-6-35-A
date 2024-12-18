@@ -1,0 +1,87 @@
+
+
+
+/* styles.css */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('./bgmomo.png'); /* Replace with your image URL */
+    background-size: cover;
+   
+  }
+  
+  .login-container {
+    text-align: center;
+    color: #f0c36d;
+    padding: 20px;
+    max-width: 400px;
+    margin: 100px auto;
+    border-radius: 10px;
+    margin-top: 12px;
+
+  }
+  
+  .login-container h1 {
+    font-size: 32px;
+    margin: 0;
+    font-family: theseasons;
+  }
+  
+  .login-container h2 {
+    font-size: 30px;
+    margin-top: 20px;
+    font-family: IBM Plex Sans;
+  }
+  
+  .login-box {
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    margin-top: 10px;
+    margin-left: 400px;
+  margin-right: 400px;
+   ;
+
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    margin: 46px;
+
+  }
+  
+  label {
+    color: #f0c36d;
+    margin: 5px 0;
+  }
+  
+  input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #f0c36d;
+    border-radius: 5px;
+  }
+  
+  button {
+    background-color: #f0c36d;
+    color: #000;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #d1a254;
+  }
+  .signup{
+    background-color: transparent wheat;
+    color: #f5f9f0;
+    font-family: the seasons;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+
+  }
