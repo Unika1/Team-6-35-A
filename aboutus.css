@@ -1,0 +1,63 @@
+.heading h1{
+    background: #dd993b84;
+    color: rgb(69, 38, 1);
+    height: 35px;
+    width: 100%;
+    border: 1px solid black ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    
+    display: flex;
+}
+.written{}
+.image img{
+   
+        height: 300px;
+        width: 400px;
+      
+}
+.firstpara{
+    font-size: 20px;
+    color: rgb(65, 46, 4);
+
+
+}
+.secondpara{
+    margin-top: 10px;
+    font-size: 20px;
+    color: rgb(65, 46, 4);
+}
+.containerpic{
+    width: 50%;
+}
+
+.author{
+    margin-top: 20px;
+    display: flex;
+    color: rgb(176, 130, 51);
+
+}
+
+.author img{
+    margin-top: 20px;
+    height: 300px;
+    width: 200px;
+
+}
+.shreetika {
+    margin-top: 60px;
+    color: rgb(116, 79, 31);
+}
+.dipika{
+    margin-top: 60px;
+    color: rgb(116, 79, 31);
+    
+}
+.sabina{
+    margin-top: 60px;
+    color: rgb(116, 79, 31);
+
+}
