@@ -57,6 +57,7 @@
 
 .profile:hover{
     cursor: pointer;
+    text-decoration: none;
 
 }
 
@@ -132,4 +133,43 @@
 .box-content p:hover{
     cursor: pointer;
     text-decoration: underline;
+}
+
+footer{
+    margin-top: 10px;
+    color: white;
+}
+
+.footer1{
+    background-color: black;
+    height: 30vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.footer1 ul p{
+    display: flex;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-decoration: underline;
+}
+
+.footer1 a{
+    display: block; /*all comes in a single line*/
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.footer1 a:hover{
+    cursor: pointer;
+    color:#f0c36d;
+}
+
+.footer2{
+    height: 5vh;
+    background-color: black;
+    display: flex;
+    justify-content: center;
 }
