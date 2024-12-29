@@ -1,0 +1,135 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.navbar{
+    height: 20vh;
+    width: 100%;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.navbar h2{
+    color: #f0c36d;
+    flex-shrink: 0; 
+    margin-left: 150px;
+}
+
+.nav-description{
+    color: #f0c36d;
+    display: flex;
+    align-items: center;
+    gap: 45px;
+    font-weight: bold;
+    font-size: 1.25rem;
+    width: 100%;
+    margin-left: 400px;
+}
+
+.nav-description :hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px; 
+    width: 60px;  
+    flex-direction: column;
+    margin-top: 55px;
+    margin-left: auto;
+}
+
+.profile i {
+    font-size: 2rem; 
+}
+
+.account{
+    font-size: 1rem;
+    margin-top: 8px;
+}
+
+.profile:hover{
+    cursor: pointer;
+
+}
+
+.drop-down{
+    display: none; /*hides the dropdown initially*/
+    position: absolute; /*brings the dropdown in the down position*/
+}
+
+.drop-down a{
+    display: block;
+    padding: 10px;
+    color: #956203;;
+    text-decoration: none;
+}
+
+.profile:hover .drop-down{
+    display: block; /*make dropdown visible*/
+}
+
+.drop-down a:hover{
+    color:rgb(46, 42, 42);
+}
+
+.content{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin: 40px 0px 40px 40px ;
+    height: 40vh;
+    width: 95%;
+    background-color: #d9d9d9;
+}
+
+.content p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 30px;
+}
+
+.box{
+    height: 400px;
+    width: 23%;
+    background-color: white;
+    padding: 20px 0px 15px;
+    margin-top: 15px;
+}
+
+.shop-section{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    background-color: #e2e7e6; 
+}
+
+.box-image{
+    height: 300px;
+    background-size: cover;
+    margin-top: 1rem;
+    margin-bottom: 1rem;  
+}
+
+.box-content{
+    margin-left: 16px; 
+    margin-right: 16px;
+}
+
+.box-content p{
+    color: #956203;
+}
+
+.box-content p:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
