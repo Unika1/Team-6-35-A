@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
           password === storedUser.password
         ) {
           alert("Login successful! Redirecting to the dashboard...");
-          window.location.href = "dashboard.html"; // Redirect to a protected page
+          window.location.href = "homepage.html"; // Redirect to a protected page
         } else {
           alert("Invalid username or password. Please try again.");
         }
@@ -34,11 +34,11 @@ document.addEventListener("DOMContentLoaded", function () {
   
   // --------------- Protected Page Access Check ---------------
   document.addEventListener("DOMContentLoaded", function () {
-    if (window.location.pathname.includes("dashboard.html")) {
+    if (window.location.pathname.includes("homepage.html")) {
       const storedUser = JSON.parse(localStorage.getItem("user"));
       if (!storedUser) {
         alert("Unauthorized access! Please log in first.");
-        window.location.href = "index.html";
+        window.location.href = "login.html";
       }
     }
   });
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (signupLink) {
       signupLink.addEventListener("click", function (e) {
         e.preventDefault(); // Prevent default behavior
-        window.location.href = "signup.html"; // Redirect to signup page
+        window.location.href = "Signup.html"; // Redirect to signup page
       });
     }
   });
