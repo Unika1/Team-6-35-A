@@ -5,43 +5,113 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About Us</title>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4eae4;
+      margin: 0;
+      padding: 0;
+    }
 
+    .about-us-container {
+      padding: 20px;
+      border: 2px solid #d2b48c;
+      width: 80%;
+      margin: 20px auto;
+      background-color: #fffaf0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
+    .title-container {
+      border: 2px solid #d2b48c;
+      padding: 15px;
+      margin-bottom: 20px;
+      text-align: center;
+      background-color: #f5e1da;
+    }
 
+    .author-container {
+      border: 2px solid #d2b48c;
+      padding: 15px;
+      margin-bottom: 20px;
+      background-color: #faebd7;
+    }
 
-.about-us-container {
-    padding: 20px;
-    border: 2px solid #000;
-    width: 80%;
-    margin: 20px auto;
-  }
-  
-  .title-container {
-    border: 2px solid #000;
-    padding: 10px;
-    margin-bottom: 15px;
-  }
-  
-  .author-container {
-    border: 2px solid #000;
-    padding: 10px;
-    margin-bottom: 15px;
-  }
-  
-  .food-container {
-    border: 2px solid #000;
-    padding: 10px;
-  }
+    .written .firstpara, .written .secondpara {
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
 
+    .Authorimage, .deepaunika {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      margin-top: 15px;
+    }
 
+    .Authorimage div, .deepaunika div {
+      text-align: center;
+      margin: 10px;
+      padding: 10px;
+      border: 1px solid #d2b48c;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: #f5e1da;
+    }
 
+    .Authorimage img, .deepaunika img {
+      width: 100px;
+      height: 200px;
+      border-radius: 40%;
+      object-fit: cover;
+      margin-top: 10px;
+      border: 2px solid #b29575;
+    }
+
+    .food-container {
+      border: 2px solid #d2b48c;
+      padding: 15px;
+      background-color: #f5e1da;
+      text-align: center;
+    }
+
+    .food-container img {
+      width: 150px;
+      height: 150px;
+      margin: 10px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2 {
+      margin-bottom: 10px;
+      color: #6b4f4b;
+    }
+
+    .chief-logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .chief-logo img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #d2b48c;
+    }
   </style>
 </head>
 <body>
   <div class="about-us-container">
+   <!-- chief logo -->
+    <div class="chief-logo">
+      <img src="./chief.png" alt="Chief Logo">
+    </div>
+
     <!-- Title Container -->
     <div class="title-container">
-      <h1>A little about JoJo's recipie book</h1>
+      <h1>A little about JoJo's Recipe Book</h1>
     </div>
 
     <!-- Author Container -->
@@ -53,31 +123,35 @@
         <div class="Authorimage">
             <h2>Authors</h2>
             <div class="shreetika">SHREETIKA SHRESTHA
-                <img src="./shreetika.png" alt="">
+                <img src="./shreetika.jpg" alt="Shreetika">
             </div>
             <div class="dipika">DIPIKA MAHARJAN
-                <img src="./dipika.png" alt="">
+                <img src="./dipika.png" alt="Dipika">
             </div>
             <div class="sabina">SABINA KHANAL
-                <img src="./sabina.png" alt="">
+                <img src="./sabina.png" alt="Sabina">
             </div>
             </div>
     <div class="deepaunika">
         <div class="deepa">DEEPA POUDEL
-                <img src="./deepa.jpeg" alt="">
+                <img src="./deepa.jpeg" alt="Deepa">
             </div>
             <div class="unika">UNIKA PARAJULI
-                <img src="./unika.jpg" alt="">
+                <img src="./unika.jpg" alt="Unika">
             </div>
     </div>
 
-      
     </div>
 
     <!-- Food Container -->
     <div class="food-container">
       <h2>Favorite Food</h2>
-      
+      <p>Explore our favorite recipes, curated with love and tradition!</p>
+      <img src="./dalbhaat.jpg" alt="Dal Bhaat">
+      <img src="./kheer.jpg" alt="Kheer">
+      <img src="./nepalifood.jpeg" alt="Nepali Food">
+      <img src="./newari.jpg" alt="Newari Food">
+      <img src="./gundruk.jpg" alt="Gundruk">
     </div>
   </div>
 </body>
