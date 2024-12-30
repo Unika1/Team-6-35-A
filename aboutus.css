@@ -12,7 +12,10 @@
     
     display: flex;
 }
-.written{}
+.written{
+    display: flex;
+    flex-direction: row;
+}
 .image img{
    
         height: 300px;
@@ -60,10 +63,4 @@
     margin-top: 60px;
     color: rgb(116, 79, 31);
 
-}
-.deepaunika{
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    margin-top: 60px;
 }
