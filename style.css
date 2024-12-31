@@ -330,3 +330,45 @@ footer{
     display: flex;
     justify-content: center;
 }
+
+
+
+
+
+
+/* about us...... */
+
+
+
+
+
+
+
+
+
+
+.about-us-container {
+    padding: 20px;
+    border: 2px solid #000;
+    width: 80%;
+    margin: 20px auto;
+  }
+  
+  .title-container {
+    border: 2px solid #000;
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .author-container {
+    border: 2px solid #000;
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .food-container {
+    border: 2px solid #000;
+    padding: 10px;
+  }
+
+
