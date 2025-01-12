@@ -1,7 +1,10 @@
+// script.js
+
 document.addEventListener("DOMContentLoaded", function () {
+  // ---------------- Login Functionality ----------------
   const loginForm = document.querySelector("form");
 
-  if (loginForm) {
+  if (loginForm && window.location.pathname.includes("login.html")) {
     loginForm.addEventListener("submit", function (e) {
       e.preventDefault();
 
@@ -29,36 +32,21 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("Invalid username or password. Please try again.");
       }
     });
-  }
-});
-// Signup
 
-// --------------- Protected Page Access Check ---------------
-document.addEventListener("DOMContentLoaded", function () {
-  if (window.location.pathname.includes("homepage.html")) {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (!storedUser) {
-      alert("Unauthorized access! Please log in first.");
-      window.location.href = "login.html";
+    // Redirect to signup page when clicking "SIGNUP" link
+    const signupLink = document.getElementById("signup");
+    if (signupLink) {
+      signupLink.addEventListener("click", function (e) {
+        e.preventDefault(); // Prevent default behavior
+        window.location.href = "Signup.html"; // Redirect to signup page
+      });
     }
   }
-});
 
-// Redirect to signup page when clicking "SIGNUP" link on login page
-document.addEventListener("DOMContentLoaded", function () {
-  const signupLink = document.getElementById("signup-link");
-
-  if (signupLink) {
-    signupLink.addEventListener("click", function (e) {
-      e.preventDefault(); // Prevent default behavior
-      window.location.href = "Signup.html"; // Redirect to signup page
-    });
-  }
-});
-document.addEventListener("DOMContentLoaded", function () {
+  // ---------------- Signup Functionality ----------------
   const signupForm = document.querySelector("form");
 
-  if (signupForm) {
+  if (signupForm && window.location.pathname.includes("Signup.html")) {
     signupForm.addEventListener("submit", function (e) {
       e.preventDefault();
 
@@ -90,62 +78,96 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("Signup successful! Redirecting to login page...");
       window.location.href = "login.html"; // Redirect to login page
     });
+
+    // Email validation function
+    function validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
   }
 
-  // Email validation function
-  function validateEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+  // ---------------- Protected Page Access Check ----------------
+  if (window.location.pathname.includes("homepage.html")) {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (!storedUser) {
+      alert("Unauthorized access! Please sign up first.");
+      window.location.href = "Signup.html";
+    }
+  }
+
+  // ---------------- Homepage Functionality ----------------
+  if (window.location.pathname.includes("homepage.html")) {
+    // Dropdown menu functionality
+    const accountElement = document.querySelector(".account");
+    const dropdownMenu = document.querySelector(".drop-down");
+
+    if (accountElement && dropdownMenu) {
+      accountElement.addEventListener("mouseenter", () => {
+        dropdownMenu.style.display = "block";
+      });
+
+      accountElement.addEventListener("mouseleave", () => {
+        dropdownMenu.style.display = "none";
+      });
+    }
+
+    // Recipe box navigation
+    const recipeBoxes = document.querySelectorAll(".box");
+    recipeBoxes.forEach((box) => {
+      box.addEventListener("click", () => {
+        const recipeCategory = box.querySelector("h2").textContent;
+        const formattedCategory = recipeCategory.toLowerCase().replace(/\s+/g, "-");
+        window.location.href = `${formattedCategory}.html`;
+      });
+    });
+
+    // Navigation bar functionality
+    const navLinks = document.querySelectorAll(".nav-description div");
+    navLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        const section = link.textContent.toLowerCase();
+        if (section === "home") {
+          window.location.href = "home.html";
+        } else if (section === "about us") {
+          window.location.href = "about.html";
+        } else if (section === "recipes") {
+          window.location.href = "recipes.html";
+        } else if (section === "contact") {
+          window.location.href = "contact.html";
+        } else {
+          alert("Page not found!");
+        }
+      });
+    });
+
+    // Footer quick links
+    const footerLinks = document.querySelectorAll(".footer1 ul:nth-child(1) a");
+    footerLinks.forEach((link, index) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (index === 0) {
+          window.location.href = "about.html";
+        } else if (index === 1) {
+          window.location.href = "terms.html";
+        } else if (index === 2) {
+          window.location.href = "privacy.html";
+        }
+      });
+    });
+
+    // Social media links
+    const socialLinks = document.querySelectorAll(".footer1 ul:nth-child(2) a");
+    socialLinks.forEach((link, index) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (index === 0) {
+          window.open("https://facebook.com", "_blank");
+        } else if (index === 1) {
+          window.open("https://instagram.com", "_blank");
+        } else if (index === 2) {
+          window.open("https://youtube.com", "_blank");
+        }
+      });
+    });
   }
 });
-
-// Select elements
-const accountElement = document.querySelector('.account');
-const dropdownMenu = document.querySelector('.drop-down');
-const recipeBoxes = document.querySelectorAll('.box');
-
-// Toggle dropdown menu for account on hover
-accountElement.addEventListener('mouseenter', () => {
-  dropdownMenu.style.display = 'block';
-});
-
-accountElement.addEventListener('mouseleave', () => {
-  dropdownMenu.style.display = 'none';
-});
-
-// Add click event listeners to recipe boxes
-recipeBoxes.forEach((box) => {
-  box.addEventListener('click', () => {
-      const recipeCategory = box.querySelector('h2').textContent;
-      const formattedCategory = recipeCategory.toLowerCase().replace(/\s+/g, '-');
-      window.location.href = `${formattedCategory}.html`;
-  });
-});
-
-// Homepage
-
-// Smooth navigation with HTML file redirection
-const navLinks = document.querySelectorAll('.nav-description div');
-
-navLinks.forEach((link) => {
-  link.addEventListener('click', () => {
-      const targetSection = link.textContent.toLowerCase();
-      switch (targetSection) {
-          case 'home':
-              window.location.href = 'home.html';
-              break;
-          case 'about us':
-              window.location.href = 'about.html';
-              break;
-          case 'recipes':
-              window.location.href = 'recipes.html';
-              break;
-          case 'contact':
-              window.location.href = 'contact.html';
-              break;
-          default:
-              alert('Page not found!');
-      }
-  });
-});
-
