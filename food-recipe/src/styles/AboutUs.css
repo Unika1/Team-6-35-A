@@ -1,0 +1,88 @@
+.about-us-container {
+    padding: 20px;
+    border: 2px solid #d2b48c;
+    width: 80%;
+    margin: 20px auto;
+    background-color: #fffaf0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .title-container {
+    border: 2px solid #d2b48c;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    background-color: #f5e1da;
+  }
+
+  .author-container {
+    border: 2px solid #d2b48c;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #faebd7;
+  }
+
+  .written .firstpara, .written .secondpara {
+    margin-bottom: 15px;
+    line-height: 1.6;
+  }
+
+  .Authorimage, .deepaunika {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 15px;
+  }
+
+  .Authorimage div, .deepaunika div {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #d2b48c;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f5e1da;
+  }
+
+  .Authorimage img, .deepaunika img {
+    width: 100px;
+    height: 200px;
+    border-radius: 10%;
+    object-fit: cover;
+    margin-top: 10px;
+    border: 2px solid #b29575;
+  }
+
+  .food-container {
+    border: 2px solid #d2b48c;
+    padding: 15px;
+    background-color: #f5e1da;
+    text-align: center;
+  }
+
+  .food-container img {
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  h1, h2 {
+    margin-bottom: 10px;
+    color: #6b4f4b;
+  }
+
+  .chief-logo {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .chief-logo img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #d2b48c;
+  }
