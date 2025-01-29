@@ -1,0 +1,101 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar Styling */
+.navbar {
+    height: 15vh;
+    width: 100%; /* Full width */
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; /* Add spacing inside */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed; /* Make it stick to the top */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensure it stays above other elements */
+}
+
+/* Navbar Title */
+.navbar h2 {
+    color: #f0c36d;
+    margin-left: 20px; /* Reduce large margin */
+    flex-shrink: 0;
+}
+
+/* Navigation Links */
+.nav-description {
+    display: flex;
+    align-items: center;
+    gap: 45px;
+    font-weight: bold;
+    font-size: 1.25rem;
+    width: auto; /* Adjust width to avoid unnecessary spacing */
+    margin-left: auto; /* Push links to the right */
+    margin-right: 20px; /* Add consistent spacing at the end */
+    color: #f0c36d;
+}
+
+.nav-description div:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #d4a657;
+}
+
+/* Profile Section */
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    width: 60px;
+    margin: 0; /* Reset margin */
+    position: relative; /* Ensure dropdown aligns correctly */
+}
+
+.profile i {
+    font-size: 2rem;
+    color: #f0c36d;
+}
+
+.account {
+    font-size: 1rem;
+    color: #f0c36d;
+    margin-top: 8px;
+}
+
+.profile:hover {
+    cursor: pointer;
+}
+
+.drop-down {
+    display: none;
+    position: absolute;
+    top: 100%; /* Align dropdown below profile */
+    left: 0;
+    background-color: #fff;
+}
+
+.drop-down a {
+    display: block;
+    padding: 10px;
+    color: #956203;
+    text-decoration: none;
+    font-size: 1rem;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+.drop-down a:hover {
+    background-color: #f0c36d;
+    color: rgb(46, 42, 42);
+}
+
+.profile:hover .drop-down {
+    display: block;
+}
