@@ -1,5 +1,6 @@
 import React from "react";
-import '../../styles/Footer.css';
+import "../../styles/Footer.css";
+import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -14,15 +15,19 @@ const Footer = () => {
 
         <ul>
           <p>Let's Be Friends!</p>
-          <a href="#"><i className="fa-brands fa-facebook"></i> Facebook</a>
-          <a href="#"><i className="fa-brands fa-instagram"></i> Instagram</a>
-          <a href="#"><i className="fa-brands fa-youtube"></i> YouTube</a>
+          <a href="#">
+            <FaFacebook /> Facebook
+          </a>
+          <a href="#">
+            <FaInstagram /> Instagram
+          </a>
+          <a href="#">
+            <FaYoutube /> YouTube
+          </a>
         </ul>
       </div>
 
-      <div className="footer2">
-        JOJO'S RECIPES © 2025
-      </div>
+      <div className="footer2">JOJO'S RECIPES © 2025</div>
     </footer>
   );
 };

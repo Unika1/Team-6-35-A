@@ -1,24 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import '../../styles/Navbar.css';
+import { FaUser } from "react-icons/fa";
 
 const Navbar = () => {
   return (
     <div className="navbar">
-      <h2>JOJO'S RECEIPE BOOK</h2>
+      <h2>JOJO'S RECIPE BOOK</h2>
       <div className="nav-description">
-        <div className="home">Home</div>
-        <div className="about">About Us</div>
-        <div className="recipes">Recipes</div>
-        <div className="contact">Contact Us</div>
-        <div className="profile">
-          <i className="fa-solid fa-user"></i>
-          <div className="account">Account
-            <div className="drop-down">
-              <Link to="/login">Login</Link>
-              <Link to="/signup">SignUp</Link>
-            </div>
-          </div>
+        <Link to="/home" className="home">Home</Link>
+        <Link to="/about" className="about">About Us</Link>
+        <Link to="/recipes" className="recipes">Recipes</Link>
+        <Link to="/contact" className="contact">Contact Us</Link>
+        <div className="profile" >
+          <Link to="/account">
+            <FaUser />
+          </Link>
+
         </div>
       </div>
     </div>
