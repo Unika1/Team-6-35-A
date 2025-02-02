@@ -8,7 +8,6 @@ function Signup() {
     email: '',
     password: ''
   });
-
   const navigate = useNavigate();
 
   const handleChange = (e) => {
