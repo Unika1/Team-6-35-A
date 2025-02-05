@@ -10,7 +10,7 @@ import AboutUs from './components/private/AboutUs';
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/navbar" element={<Navbar />} />
       <Route path="/content" element={<Content />} />

@@ -73,7 +73,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-image: url('./bgmomo.png'); /* Replace with your image URL */
+    background-image: url('./bgmomo.png'); 
     background-size: cover;
    
 }
