@@ -1,8 +1,281 @@
-.front-image img{
-    height: 5%;
-    width: 100%;
+.front {
     display: flex;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;    
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.front-image {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.front-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.front-description {
+    max-width: 800px;
+    padding: 50px 20px;
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+.front-description h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.front-description p {
+    margin-bottom: 30px;
+    color: #555;
+}
+
+.list-heading {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.front-description ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.front-description ul li {
+    margin: 10px 0;
+    color: #555;
+}
+
+.front-description h1 {
+    font-size: 2.5rem;
+    margin-top: 40px;
+    color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .front-image {
+        height: 80vh;
+    }
+
+    .front-description {
+        padding: 40px 20px;
+    }
+
+    .front-description h2 {
+        font-size: 2.2rem;
+    }
+
+    .front-description p {
+        font-size: 1.1rem;
+    }
+
+    .front-description h1 {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .front-image {
+        height: 60vh;
+    }
+
+    .front-description {
+        padding: 30px 15px;
+    }
+
+    .front-description h2 {
+        font-size: 2rem;
+    }
+
+    .front-description p {
+        font-size: 1rem;
+    }
+
+    .front-description h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .front-image {
+        height: 50vh;
+    }
+
+    .front-description {
+        padding: 20px 10px;
+    }
+
+    .front-description h2 {
+        font-size: 1.8rem;
+    }
+
+    .front-description p {
+        font-size: 0.9rem;
+    }
+
+    .front-description h1 {
+        font-size: 1.8rem;
+    }
+}.front {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.front-image {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.front-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.front-description {
+    max-width: 950px;
+    padding: 50px 20px;
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+.front-description h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.front-description p {
+    margin-bottom: 30px;
+    color: #555;
+}
+
+.list-heading {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.front-description ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.front-description ul li {
+    margin: 10px 0;
+    color: #555;
+}
+
+.front-description h1 {
+    font-size: 2.5rem;
+    margin-top: 40px;
+    color: #333;
+}
+
+.explore-dishes {
+    background-color: #f0c36d; 
+    padding: 15px 0;
+    text-align: center;
+    margin-top: 80px;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.explore-dishes h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .front-image {
+        height: 80vh;
+    }
+
+    .front-description {
+        padding: 40px 20px;
+    }
+
+    .front-description h2 {
+        font-size: 2.2rem;
+    }
+
+    .front-description p {
+        font-size: 1.1rem;
+    }
+
+    .front-description h1 {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .front-image {
+        height: 60vh;
+    }
+
+    .front-description {
+        padding: 30px 15px;
+    }
+
+    .front-description h2 {
+        font-size: 2rem;
+    }
+
+    .front-description p {
+        font-size: 1rem;
+    }
+
+    .front-description h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .front-image {
+        height: 50vh;
+    }
+
+    .front-description {
+        padding: 20px 10px;
+    }
+
+    .front-description h2 {
+        font-size: 1.8rem;
+    }
+
+    .front-description p {
+        font-size: 0.9rem;
+    }
+
+    .front-description h1 {
+        font-size: 1.8rem;
+    }
 }
