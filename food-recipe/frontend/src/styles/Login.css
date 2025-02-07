@@ -1,12 +1,16 @@
-/* login */
-body {
+/* Fullscreen Background */
+.container {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-image: url('./bgmomo.png'); /* Replace with your image URL */
+    background: url('../assets/images/bgmomo.png') no-repeat center center fixed; 
     background-size: cover;
-   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
 }
-  
+
 .login-container {
     text-align: center;
     color: #f0c36d;
@@ -60,17 +64,16 @@ input {
   }
   
 button {
-    background-color: #f0c36d;
-    color: #000;
+    background-color: #007bff;
+    color: #fff;
     border: none;
     padding: 10px;
     border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
 }
-  
 button:hover {
-    background-color: #d1a254;
+    background-color: #0b9be8;
 }
 .signup{
     background-color: transparent wheat;
@@ -79,6 +82,20 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+}
 
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-box {
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    .login-container h1 {
+        font-size: 28px;
+    }
+
+    .login-container h2 {
+        font-size: 22px;
+    }
 }
