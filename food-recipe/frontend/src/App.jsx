@@ -11,7 +11,6 @@ import FrontSection from './components/private/FrontSection';
 function App() {
   return (
     <>
-      <Navbar />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -20,7 +19,6 @@ function App() {
         <Route path="/homepage" element={<Homepage />} />
         <Route path="/frontsection" element={<FrontSection />} />
       </Routes>
-      <Footer />
     </>
   );
 }
