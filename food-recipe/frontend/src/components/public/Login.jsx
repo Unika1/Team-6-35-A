@@ -20,7 +20,7 @@ const Login = () => {
     }
 
     // Validate user credentials
-    if (email === storedUser.email && password === storedUser.password) {  // Compare email instead of username
+    if (email === storedUser.email && password === storedUser.password) {  
       alert("Login successful! Redirecting to the dashboard...");
       navigate("/homepage");  // Redirect to the homepage
     } else {
@@ -36,7 +36,7 @@ const Login = () => {
       </div>
       <div className="login-box">
         <form onSubmit={handleSubmit}>
-          <label htmlFor="email">Email</label>  {/* Changed label to Email */}
+          <label htmlFor="email">Email</label> 
           <input
             type="email"
             id="email"
