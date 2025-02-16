@@ -1,25 +1,32 @@
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Login from './components/public/Login';
-import Signup from './components/public/Signup';
-import Content from './components/private/Content';
-import AboutUs from './components/private/AboutUs';
+import Recipe from './components/private/Recipe';
+import Meal from './components/private/Meal';
 import Homepage from './components/private/Homepage';
 import Navbar from './components/private/Navbar';
 import Footer from './components/private/Footer';
-import FrontSection from './components/private/FrontSection';
+import Login from './components/public/Login';
+import Signup from './components/public/Signup';
+import AboutUs from './components/private/AboutUs';
 
 function App() {
   return (
-    <>
+    <div>
+      <Navbar />  {/* Global Navbar */}
+      
+      {/* Dynamic content */}
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/content" element={<Content />} />
-        <Route path="/about" element={<AboutUs />} />
         <Route path="/home" element={<Homepage />} />
-        <Route path="/frontsection" element={<FrontSection />} />
+        <Route path="/meal" element={<Meal />} />
+        <Route path="/:recipeId" element={<Recipe />} />
+        <Route path="/about" element={<AboutUs />} />
+        {/* <Route path="/footer" element={<Contact />} /> */}
       </Routes>
-    </>
+      
+      <Footer />  {/* Global Footer */}
+    </div>
   );
 }
 

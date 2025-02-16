@@ -14,7 +14,7 @@ const Footer = () => {
         </ul>
 
         <ul>
-          <p>Let's Be Friends!</p>
+          <p id ="contactUs">Let's Be Friends!</p>
           <a href="#">
             <FaFacebook /> Facebook
           </a>

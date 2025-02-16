@@ -1,0 +1,160 @@
+/* General Layout */
+.meal-main {
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Search Box */
+.searchBox {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.searchbar {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    width: 500px;
+    min-width: 250px;
+    border-radius: 30px;
+    background-color: white;
+    border: 2px solid #f0c36d;
+    overflow: hidden;
+    transition: width 0.3s ease, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.searchbar:focus-within {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.searchinput {
+    flex: 1;
+    padding: 10px 20px;
+    margin-top: 15px;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: #333;
+}
+
+.searchicon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 60px;
+    background-color: #f0c36d;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: none;
+}
+
+.searchicon:hover {
+    background-color: #ff9d42;
+}
+
+/* Meal Layout */
+.meal-layout {
+    display: flex;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Sidebar (Categories Section) */
+.categories-section {
+    width: 260px;
+    background: linear-gradient(135deg, #ffb347, #ffcc33);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+}
+
+.categories-heading {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Category List */
+.indexContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-right: 50px;
+}
+
+.indexContainer .numBox {
+    background-color: white;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #444;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.indexContainer .numBox:hover {
+    background-color: #ff9d42;
+    color: white;
+    transform: translateX(5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Meal Container (Middle) */
+.meal-container {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-gap: 4rem;
+    padding: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .meal-layout {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .categories-section {
+        width: 100%;
+        text-align: center;
+    }
+
+    .indexContainer {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .meal-container {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    
+    .searchbar {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .meal-container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+}
