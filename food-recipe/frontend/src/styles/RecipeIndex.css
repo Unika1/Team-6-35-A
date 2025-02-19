@@ -1,0 +1,17 @@
+.numBox {
+    width: 100px;
+    border-radius: 4px;
+    height: 40px;
+    background-color: #030e12;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .numBox:hover {
+    background-color: #f0c36d;
+  }
