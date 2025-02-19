@@ -22,7 +22,7 @@ const Login = () => {
     // Validate user credentials
     if (email === storedUser.email && password === storedUser.password) {  
       alert("Login successful! Redirecting to the dashboard...");
-      navigate("/homepage");  // Redirect to the homepage
+      navigate("/home");
     } else {
       alert("Invalid email or password. Please try again.");
     }
@@ -41,7 +41,7 @@ const Login = () => {
             type="email"
             id="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}  // Updated onChange
+            onChange={(e) => setEmail(e.target.value)}    
             placeholder="Enter your email"
           />
           <label htmlFor="password">Password</label>

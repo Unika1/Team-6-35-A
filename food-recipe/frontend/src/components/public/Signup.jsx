@@ -37,13 +37,16 @@ const Signup = () => {
     localStorage.setItem("user", JSON.stringify(userData));
 
     alert("Signup successful! Redirecting to login page...");
-    navigate("/login"); // Redirect to login page
+    navigate("/"); // Redirect to login page
   };
 
   return (
     <div className="main">
-      <div className="signup-container">
-        <h2 className="text-center">Signup</h2>
+      <div className="auth-container">
+        <h1>JOJO'S RECIPE BOOK</h1>
+        <h2>SIGNUP</h2>
+      </div>
+      <div className="auth-box">
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
@@ -84,7 +87,7 @@ const Signup = () => {
         </form>
         <div className="form-footer">
           <p>
-            Already have an account? <a href="/login">Login here</a>
+            Already have an account? <a href="/">Login here</a>
           </p>
         </div>
       </div>
