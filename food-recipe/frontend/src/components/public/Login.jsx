@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";  // Import useNavigate
+import { Link, useNavigate } from "react-router-dom";  
 import '../../styles/Login.css';
 
 const Login = () => {
-  const [email, setEmail] = useState("");  // Updated state for email
+  const [email, setEmail] = useState("");  
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();  // Initialize navigate
+  const navigate = useNavigate(); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,7 +15,7 @@ const Login = () => {
 
     if (!storedUser) {
       alert("No account found! Please sign up first.");
-      navigate("/signup");  // Redirect to the signup page
+      navigate("/signup");  
       return;
     }
 

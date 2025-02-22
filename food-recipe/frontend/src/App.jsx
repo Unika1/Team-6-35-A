@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div>
-      {!hideNavAndFooter && <Navbar />}  {/* Show Navbar only if not on Login or Signup */}
+      {!hideNavAndFooter && <Navbar />}  
       
       <Routes>
         <Route path="/" element={<Login />} />
@@ -26,7 +26,7 @@ function App() {
         <Route path="/about" element={<AboutUs />} />
       </Routes>
       
-      {!hideNavAndFooter && <Footer />}  {/* Show Footer only if not on Login or Signup */}
+      {!hideNavAndFooter && <Footer />}  
     </div>
   );
 }

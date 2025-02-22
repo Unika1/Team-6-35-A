@@ -37,7 +37,7 @@ const Signup = () => {
     localStorage.setItem("user", JSON.stringify(userData));
 
     alert("Signup successful! Redirecting to login page...");
-    navigate("/"); // Redirect to login page
+    navigate("/"); 
   };
 
   return (
