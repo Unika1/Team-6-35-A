@@ -1,6 +1,6 @@
 import React from "react";
-import '../../styles/FrontSection.css';
-import frontImage from '../../assets/images/frontimage.png';
+import '../../../styles/FrontSection.css';
+import frontImage from '../../../assets/images/frontimage.png';
 
 function FrontSection() {
     return (
