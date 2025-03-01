@@ -1,87 +1,122 @@
 /* Fullscreen Background */
 .container {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: url('../assets/images/bgmomo.png') no-repeat center center fixed; 
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: url('../assets/images/image.png') no-repeat center center fixed; 
     background-size: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 100vw;
+    overflow: hidden;
 }
 
+/* Stylish Login Box */
 .login-container {
     text-align: center;
-    color: #f0c36d;
-    padding: 20px;
-    max-width: 400px;
-    margin: 100px auto;
-    border-radius: 10px;
-    margin-top: 12px;
-
+    color: black;
+    padding: 25px;
+    width: 100vw;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.6);  /* Glassmorphism effect */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0; 
+    left: 0;
+    z-index: 1000; 
 }
-  
+
 .login-container h1 {
-    font-size: 32px;
-    margin: 0;
-    font-family: theseasons;
+    font-size: 34px;
+    font-weight: bold;
+    color: #f0c36d;
+    margin-bottom: 10px;
 }
   
 .login-container h2 {
-    font-size: 30px;
-    margin-top: 20px;
-    font-family: IBM Plex Sans;
+    font-size: 28px;
+    margin-top: 10px;
+    font-family: "IBM Plex Sans", sans-serif;
+    color: #f8f9fa;
 }
   
 .login-box {
-    border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.8);
-    margin-top: 10px;
-    margin-left: 400px;
-  margin-right: 400px;
-   ;
+    border-radius: 12px;
+    justify-content: center;
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+    background-color: antiquewhite;
+}
 
-}
-  
-form {
-    display: flex;
-    flex-direction: column;
-    margin: 46px;
-
-}
-  
-label {
-    color: #f0c36d;
-    margin: 5px 0;
-}
-  
+/* Input Field Styling */
 input {
-    padding: 10px;
+    padding: 12px;
     margin-bottom: 15px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(165, 123, 82, 0.1);
+    color: black;
+    outline: none;
+    font-size: 16px;
+    transition: 0.3s;
+    width: 100%;
+}
+
+input::placeholder {
+    color: #cba891;
+    opacity: 0.7;
+}
+
+input:focus {
+    background: rgba(255, 255, 255, 0.2);
     border: 1px solid #f0c36d;
-    border-radius: 5px;
-  }
-  
+}
+
+/* Stylish Button */
 button {
-    background-color: #007bff;
+    background: linear-gradient(135deg, #ff9f43, #fc4a1a);
     color: #fff;
     border: none;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 12px;
+    border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s;
+    width: 100%;
 }
+
 button:hover {
-    background-color: #0b9be8;
+    background: linear-gradient(135deg, #fc4a1a, #ff9f43);
+    transform: scale(1.05);
 }
-.signup{
-    background-color: transparent wheat;
-    color: #f5f9f0;
-    font-family: the seasons;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+/* Signup Link */
+.signup {
+    background: transparent;
+    color: black;
+    font-size: 14px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.signup a {
+    color: #ff9f43;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.signup a:hover {
+    color: #fc4a1a;
+    text-decoration: underline;
 }
 
 /* Responsive Design */

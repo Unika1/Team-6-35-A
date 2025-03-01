@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";  // Import useNavigate
+import { Link, useNavigate } from "react-router-dom";  
 import '../../styles/Login.css';
 
 const Login = () => {
-  const [email, setEmail] = useState("");  // Updated state for email
+  const [email, setEmail] = useState("");  
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();  // Initialize navigate
+  const navigate = useNavigate(); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,14 +15,14 @@ const Login = () => {
 
     if (!storedUser) {
       alert("No account found! Please sign up first.");
-      navigate("/signup");  // Redirect to the signup page
+      navigate("/signup");  
       return;
     }
 
     // Validate user credentials
     if (email === storedUser.email && password === storedUser.password) {  
       alert("Login successful! Redirecting to the dashboard...");
-      navigate("/homepage");  // Redirect to the homepage
+      navigate("/home");
     } else {
       alert("Invalid email or password. Please try again.");
     }
@@ -41,7 +41,7 @@ const Login = () => {
             type="email"
             id="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}  // Updated onChange
+            onChange={(e) => setEmail(e.target.value)}    
             placeholder="Enter your email"
           />
           <label htmlFor="password">Password</label>
