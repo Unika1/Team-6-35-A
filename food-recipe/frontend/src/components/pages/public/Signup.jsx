@@ -50,7 +50,6 @@ const Signup = () => {
 
       setSuccess("Signup successful! Redirecting...");
       
-      // Save token if backend sends it
       if (response.data.token) {
         localStorage.setItem("token", response.data.token);
       }

@@ -1,7 +1,6 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
 
-// Load environment variables
 dotenv.config();
 
 const sequelize = new Sequelize(
@@ -10,12 +9,11 @@ const sequelize = new Sequelize(
   process.env.DB_PASS,
   {
     host: process.env.DB_HOST,
-    dialect: process.env.DB_DIALECT || 'postgres', // Default to PostgreSQL
-    logging: false, // Disable SQL query logging for cleaner console
+    dialect: process.env.DB_DIALECT || 'postgres',
+    logging: false, 
   }
 );
 
-// Connection test
 const connection = async () => {
   try {
     await sequelize.authenticate();
@@ -25,5 +23,4 @@ const connection = async () => {
   }
 };
 
-// Exporting sequelize and connection
 export { sequelize, connection };
