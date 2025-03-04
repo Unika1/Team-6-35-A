@@ -15,4 +15,11 @@ const verifyToken = (req, res, next) => {
     }
 };
 
-export default { verifyToken };
+const verifyAdmin = (req, res, next) => {
+    if (!req.user || req.user.role !== "admin") {
+        return res.status(403).json({ error: "Access denied. Admins only." });
+    }
+    next();
+};
+
+export default { verifyToken, verifyAdmin };
