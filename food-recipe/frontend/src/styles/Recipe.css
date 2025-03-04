@@ -1,104 +1,93 @@
-.recipes {
+.recipe-container {
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
-  background-color: #f9f9f9;
-}
-
-.recipes h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  /* color: #333; */
-  
-}
-
-.recipe-list {
-  display: flex;
-  flex-direction: column; /* Stack recipe items vertically */
-  align-items: center; /* Center recipe items horizontally */
-  gap: 30px; /* Increased space between recipe items */
-}
-
-.recipe-item {
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 12px; /* Rounded corners */
-  padding: 20px; /* Increased padding */
-  width: 80%; /* Adjust width as needed */
-  max-width: 1000px; /* Wider max-width for larger screens */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Deeper shadow */
-  transition: transform 0.2s, box-shadow 0.2s; /* Smooth hover effect */
-}
-
-.recipe-item:hover {
-  transform: translateY(-5px); /* Lift effect on hover */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
 }
 
 .recipe-header {
-  display: flex; /* Image and title side by side */
-  gap: 30px; /* Increased space between image and title */
-  align-items: center; /* Align image and title vertically */
-  margin-bottom: 20px; /* Space below header */
+  margin-top: 40px;
+  position: relative;
+  text-align: center;
+  margin-bottom: 40px;
+  overflow: hidden; /* Ensure the image doesn't overflow */
 }
 
 .recipe-image {
-  width: 250px; /* Larger image width */
-  height: 250px; /* Larger image height */
-  border-radius: 12px; /* Rounded corners */
+  width: 75%; /* Set the width to 75% of the container */
+  height: 80vh;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   object-fit: cover; /* Ensures the image covers the area without distortion */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for image */
 }
 
 .recipe-title {
-  flex: 1; /* Title takes remaining space */
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%; /* Limit the width of the title box */
+  max-width: 600px; /* Set a max-width for larger screens */
+}
+
+.recipe-title h1 {
+  margin: 0;
+  font-size: 2.5rem;
   color: #333;
-  margin: 0; /* Remove default margin */
-  font-size: 1.8rem; /* Larger title font size */
-  font-weight: 600; /* Bold title */
 }
 
-.recipe-description {
-  color: #666;
-  margin-bottom: 20px; /* Increased space below description */
-  font-size: 1.1rem; /* Slightly larger description font size */
-  line-height: 1.6; /* Improved readability */
+.recipe-title h2 {
+  margin: 5px 0 0;
+  font-size: 1.5rem;
+  color: #555;
 }
 
-.recipe-details {
+.recipe-content {
   display: flex;
-  flex-direction: column; /* Ingredients and instructions stacked vertically */
-  gap: 20px; /* Increased space between ingredients and instructions */
+  gap: 40px;
+  margin-top: 40px;
 }
 
-.recipe-ingredients,
-.recipe-instructions {
-  background-color: #f5f5f5; /* Subtle background for differentiation */
-  padding: 15px; /* Increased padding */
-  border-radius: 8px; /* Rounded corners */
+.ingredients, .instructions {
+  flex: 1;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.recipe-ingredients h4,
-.recipe-instructions h4 {
-  margin-bottom: 10px; /* Increased space below headings */
+.ingredients h2, .instructions h2 {
+  margin-top: 0;
+  font-size: 2rem;
   color: #333;
-  font-size: 1.4rem; /* Larger headings */
-  font-weight: 500; /* Semi-bold headings */
 }
 
-.recipe-ingredients ul {
-  padding-left: 25px; /* Increased padding for list */
-  margin-bottom: 10px;
+.ingredients ul {
+  list-style-type: none;
+  padding: 0;
 }
 
-.recipe-ingredients ul li {
-  list-style-type: disc;
-  color: #666;
-  font-size: 1rem; /* Slightly larger list items */
-  line-height: 1.6; /* Improved readability */
+.ingredients li {
+  margin: 10px 0;
+  font-size: 1.1rem;
+  color: #555;
 }
 
-.recipe-instructions p {
-  color: #666;
-  margin: 0; /* Remove default margin */
-  font-size: 1rem; /* Slightly larger text */
-  line-height: 1.6; /* Improved readability */
+.instructions p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+.video-container {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.video-container iframe {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

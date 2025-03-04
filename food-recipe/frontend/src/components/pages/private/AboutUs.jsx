@@ -11,13 +11,10 @@ import kheer from '../../../assets/images/kheer.jpg';
 import nepalifood from '../../../assets/images/nepalifood.jpeg';
 import newari from '../../../assets/images/newari.jpg';
 import gundruk from '../../../assets/images/gundruk.jpg';
-import Navbar from './Navbar';
-import Footer from './Footer';
 
 const AboutUs = () => {
   return (
     <div className="about-us-container">
-      <Navbar/>
       <header className="chief-logo">
         <img src={chiefLogo} alt="Chief Logo" />
       </header>
