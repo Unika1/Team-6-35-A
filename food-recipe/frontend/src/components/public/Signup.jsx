@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"; 
 import "../../styles/Signup.css";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");  // To store error messages
+  const [loading, setLoading] = useState(false);  // To handle loading state
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
@@ -13,35 +16,55 @@ const Signup = () => {
     return emailRegex.test(email);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(""); // Reset error message on new submit attempt
+    setLoading(true); // Set loading state to true
 
     // Input Validation
     if (!username || !email || !password) {
-      alert("All fields are required!");
+      setError("All fields are required!");
+      setLoading(false); // Reset loading state
       return;
     }
 
     if (!validateEmail(email)) {
-      alert("Invalid email format!");
+      setError("Invalid email format!");
+      setLoading(false); // Reset loading state
       return;
     }
 
     if (password.length < 6) {
-      alert("Password must be at least 6 characters long!");
+      setError("Password must be at least 6 characters long!");
+      setLoading(false); // Reset loading state
       return;
     }
 
-    // Store user data in localStorage
-    const userData = { username, email, password };
-    localStorage.setItem("user", JSON.stringify(userData));
+    // Try making the API request to the backend
+    try {
+      const response = await axios.post("http://localhost:5000/api/users/signup", {
+        username,
+        email,
+        password,
+      });
 
-    alert("Signup successful! Redirecting to login page...");
-    navigate("/"); 
+      // Handle success response
+      alert(response.data.message);
+      navigate("/login"); // Redirect to login page
+    } catch (err) {
+      // Handle error response
+      if (err.response) {
+        setError(err.response.data.error || "Something went wrong.");
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+    } finally {
+      setLoading(false); // Reset loading state
+    }
   };
 
   return (
-    <div className="main">
+    <div className="container">
       <div className="auth-container">
         <h1>JOJO'S RECIPE BOOK</h1>
         <h2>SIGNUP</h2>
@@ -81,13 +104,16 @@ const Signup = () => {
               required
             />
           </div>
-          <button type="submit" className="signup-btn">
-            Sign Up
+          <button type="submit" className="signup-btn" disabled={loading}>
+            {loading ? "Signing up..." : "Sign Up"}
           </button>
         </form>
+
+        {error && <div className="error-message">{error}</div>}
+
         <div className="form-footer">
           <p>
-            Already have an account? <a href="/">Login here</a>
+            Already have an account? <a href="/login">LOGIN</a>
           </p>
         </div>
       </div>

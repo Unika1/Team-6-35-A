@@ -1,30 +1,30 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";  // Import useNavigate
+import { Link, useNavigate } from "react-router-dom";  
+import axios from "axios";  
 import '../../../styles/Login.css';
 
 const Login = () => {
-  const [email, setEmail] = useState("");  // Updated state for email
+  const [email, setEmail] = useState("");  
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();  // Initialize navigate
+  const [error, setError] = useState(null);  
+  const navigate = useNavigate(); 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Retrieve stored user data from localStorage
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+    try {
+      const response = await axios.post('http://localhost:5000/api/users/login', {
+        email,
+        password
+      });
 
-    if (!storedUser) {
-      alert("No account found! Please sign up first.");
-      navigate("/signup");  // Redirect to the signup page
-      return;
-    }
+      localStorage.setItem('token', response.data.token);
 
-    // Validate user credentials
-    if (email === storedUser.email && password === storedUser.password) {  
-      alert("Login successful! Redirecting to the dashboard...");
-      navigate("/homepage");  // Redirect to the homepage
-    } else {
-      alert("Invalid email or password. Please try again.");
+      alert("Login successful! Redirecting to the homepage...");
+      navigate("/home");  
+    } catch (error) {
+      setError(error.response?.data?.message || "An error occurred, please try again.");
+      alert(error.response?.data?.message || "Invalid credentials, please try again.");
     }
   };
 
@@ -36,12 +36,12 @@ const Login = () => {
       </div>
       <div className="login-box">
         <form onSubmit={handleSubmit}>
-          <label htmlFor="email">Email</label> 
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}  // Updated onChange
+            onChange={(e) => setEmail(e.target.value)}  
             placeholder="Enter your email"
           />
           <label htmlFor="password">Password</label>
@@ -54,6 +54,7 @@ const Login = () => {
           />
           <button type="submit">Log In</button>
         </form>
+        {error && <div className="error">{error}</div>} 
         <div className="signup">
           Don't have an account? <Link to="/signup">SIGNUP</Link>
         </div>
