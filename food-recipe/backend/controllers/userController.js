@@ -34,15 +34,20 @@ export const loginUser = async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ error: "Invalid password" });
         }
+
         const token = jwt.sign(
-            { id: user.id, username: user.username, email: user.email },
-            process.env.JWT_SECRET || 'secret',
+            { id: user.id, username: user.username, email: user.email, role: user.role }, 
+            process.env.JWT_SECRET || 'secret', 
             { expiresIn: '24h' }
         );
+
+        const redirectTo = user.role === 'admin' ? "/admin" : "/home";
+
         res.status(200).json({
             message: "Successfully logged in",
             token,
-            user: { id: user.id, username: user.username, email: user.email }
+            redirectTo,  
+            user: { id: user.id, username: user.username, email: user.email, role: user.role }
         });
     } catch (error) {
         console.error("Login error:", error);
