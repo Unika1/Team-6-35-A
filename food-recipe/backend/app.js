@@ -10,7 +10,11 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5174', // Allow our frontend's URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific methods
+  allowedHeaders: ['Content-Type', 'Authorization'] // Allow specific headers
+}));
 app.use(express.json());
 
 // Serve static files from the 'recipe_images' folder
@@ -30,5 +34,5 @@ sequelize
 connection();
 
 // Start the server
-const PORT = process.env.PORT || 5000; // Use environment variable for port
+const PORT = process.env.PORT || 8080; // Use environment variable for port
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
