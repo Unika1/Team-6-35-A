@@ -23,11 +23,11 @@ const Review = () => {
       try {
         if (recipeId) {
           // Fetch specific recipe reviews
-          const recipeResponse = await fetch(`http://localhost:8080/api/recipes/${recipeId}`);
+          const recipeResponse = await fetch(`http://localhost:5000/api/recipes/${recipeId}`);
           const recipeData = await recipeResponse.json();
           setRecipeName(recipeData.title);
 
-          const reviewsResponse = await fetch(`http://localhost:8080/api/recipes/${recipeId}/reviews`);
+          const reviewsResponse = await fetch(`http://localhost:5000/api/recipes/${recipeId}/reviews`);
           const reviewsData = await reviewsResponse.json();
           setReviews(reviewsData);
         } else {
