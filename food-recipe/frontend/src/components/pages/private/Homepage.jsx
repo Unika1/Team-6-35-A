@@ -36,7 +36,7 @@ const Homepage = () => {
                 <h2>{recipe.title}</h2>
                 {recipe.image && (
                   <img
-                    src={`http://localhost:8080/${recipe.image}`}
+                    src={`http://localhost:5000/${recipe.image}`}
                     alt={recipe.title}
                     className="recipe-image"
                   />
