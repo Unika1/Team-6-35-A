@@ -1,13 +1,29 @@
-import Review from "../models/Review.js";
+import Review from '../models/Review.js';
+
+// Create a new review
+export const createReview = async (req, res) => {
+  try {
+    const { Description, userId } = req.body;
+
+    // Validate that Description and userId are provided
+    if (!Description || !userId) {
+      return res.status(400).json({ error: 'Description and userId are required' });
+    }
+
+    const review = await Review.create({ Description, userId });
+    res.status(201).json(review);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 // Get all reviews
 export const getAllReviews = async (req, res) => {
   try {
     const reviews = await Review.findAll();
-    res.json(reviews);
+    res.status(200).json(reviews);
   } catch (error) {
-    console.error("Error fetching reviews:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -15,41 +31,30 @@ export const getAllReviews = async (req, res) => {
 export const getReviewById = async (req, res) => {
   try {
     const review = await Review.findByPk(req.params.id);
-    if (!review) {
-      return res.status(404).json({ message: "Review not found" });
+    if (review) {
+      res.status(200).json(review);
+    } else {
+      res.status(404).json({ error: 'Review not found' });
     }
-    res.json(review);
   } catch (error) {
-    console.error("Error fetching review:", error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-};
-
-// Create a new review
-export const createReview = async (req, res) => {
-  try {
-    const { userId, recipeId, rating, comment } = req.body;
-    const newReview = await Review.create({ userId, recipeId, rating, comment });
-    res.status(201).json(newReview);
-  } catch (error) {
-    console.error("Error creating review:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 };
 
 // Update a review by ID
 export const updateReview = async (req, res) => {
   try {
-    const { rating, comment } = req.body;
+    const { Description } = req.body;
     const review = await Review.findByPk(req.params.id);
-    if (!review) {
-      return res.status(404).json({ message: "Review not found" });
+    if (review) {
+      review.Description = Description;
+      await review.save();
+      res.status(200).json(review);
+    } else {
+      res.status(404).json({ error: 'Review not found' });
     }
-    await review.update({ rating, comment });
-    res.json(review);
   } catch (error) {
-    console.error("Error updating review:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+    res.status(400).json({ error: error.message });
   }
 };
 
@@ -57,13 +62,13 @@ export const updateReview = async (req, res) => {
 export const deleteReview = async (req, res) => {
   try {
     const review = await Review.findByPk(req.params.id);
-    if (!review) {
-      return res.status(404).json({ message: "Review not found" });
+    if (review) {
+      await review.destroy();
+      res.status(204).json({ message: 'Review deleted' });
+    } else {
+      res.status(404).json({ error: 'Review not found' });
     }
-    await review.destroy();
-    res.status(204).send();
   } catch (error) {
-    console.error("Error deleting review:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 };

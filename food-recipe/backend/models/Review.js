@@ -6,27 +6,11 @@ const Review = sequelize.define('Review', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'Users', // Adjust the model name as needed
+            model: 'User', // Adjust the model name as needed
             key: 'id'
         }
     },
-    recipeId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'Recipes', // Adjust the model name as needed
-            key: 'id'
-        }
-    },
-    rating: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-            min: 1,
-            max: 5
-        }
-    },
-    comment: {
+    Description: {
         type: DataTypes.STRING,
         allowNull: false
     }
