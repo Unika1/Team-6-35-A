@@ -10,6 +10,7 @@ import RecipeForm from "../src/admin/RecipeForm";
 import Login from "./components/pages/public/Login";
 import Signup from "./components/pages/public/Signup";
 import Recipes from "./components/pages/private/Recipes";
+import Review from "./components/pages/private/Review";
 
 const PrivateRoute = ({ children, roleRequired }) => {
   const token = localStorage.getItem("token");
@@ -32,6 +33,7 @@ function App() {
         <Route path="/recipe/:id" element={<PrivateRoute><Recipe /></PrivateRoute>} />
         <Route path="/about" element={<PrivateRoute><AboutUs /></PrivateRoute>} />
         <Route path="/recipe" element={<PrivateRoute><Recipes /></PrivateRoute>} />
+        <Route path="/reviews" element={<PrivateRoute><Review /></PrivateRoute>} />
 
         <Route path="/admin" element={<PrivateRoute roleRequired="admin"><AdminPanel /></PrivateRoute>} />
         <Route path="/admin/add" element={<PrivateRoute roleRequired="admin"><RecipeForm isEditMode={false} /></PrivateRoute>} />
