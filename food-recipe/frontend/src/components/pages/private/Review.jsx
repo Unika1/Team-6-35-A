@@ -1,183 +1,162 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import '../../../styles/Review.css';
-import Navbar from './Navbar';
+import axios from 'axios';
 
 const Review = () => {
-  const { id: recipeId } = useParams();
-  const navigate = useNavigate();
   const [reviews, setReviews] = useState([]);
-  const [recipeName, setRecipeName] = useState('');
-  const [newReview, setNewReview] = useState({
-    rating: 5,
-    comment: '',
-    image: null
-  });
-  const [currentPage, setCurrentPage] = useState(1);
-  const [sortBy, setSortBy] = useState('newest');
+  const [Description, setDescription] = useState('');
+  const [editId, setEditId] = useState(null);
 
-  // Fetch recipe details and reviews
+  const userId = 1; // Update this based on actual user
+
   useEffect(() => {
-    console.log('Review component mounted, recipeId:', recipeId);
-    const fetchRecipeAndReviews = async () => {
-      try {
-        if (recipeId) {
-          // Fetch specific recipe reviews
-          const recipeResponse = await fetch(`http://localhost:8080/api/recipes/${recipeId}`);
-          const recipeData = await recipeResponse.json();
-          setRecipeName(recipeData.title);
+    fetchReviews();
+  }, []);
 
-          const reviewsResponse = await fetch(`http://localhost:8080/api/recipes/${recipeId}/reviews`);
-          const reviewsData = await reviewsResponse.json();
-          setReviews(reviewsData);
-        } else {
-          // Show all reviews
-          setRecipeName('All Reviews');
-          // You can fetch all reviews here or use dummy data
-          setReviews([
-            {
-              id: 1,
-              username: 'John Doe',
-              rating: 5,
-              comment: 'Great recipe! Loved it.',
-              date: new Date().toISOString(),
-              image: null
-            },
-            {
-              id: 2,
-              username: 'Jane Smith',
-              rating: 4,
-              comment: 'Very tasty but a bit too spicy for me.',
-              date: new Date().toISOString(),
-              image: null
-            }
-          ]);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setRecipeName('Reviews');
-        setReviews([]); // Empty array instead of undefined
-      }
-    };
-
-    fetchRecipeAndReviews();
-  }, [recipeId]);
-
-  const handleSubmitReview = async (e) => {
-    e.preventDefault();
+  const fetchReviews = async () => {
     try {
-      const response = await fetch(`/api/recipes/${recipeId}/reviews`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...newReview,
-          username: 'Current User', // This should come from auth context in a real app
-        }),
-      });
-
-      if (response.ok) {
-        const newReviewItem = await response.json();
-        setReviews([newReviewItem, ...reviews]);
-        setNewReview({ rating: 5, comment: '', image: null });
-      } else {
-        console.error('Failed to submit review');
-      }
+      const response = await axios.get('http://localhost:5000/api/reviews');
+      setReviews(response.data);
     } catch (error) {
-      console.error('Error submitting review:', error);
-      // Fallback for testing
-      const newReviewItem = {
-        id: reviews.length + 1,
-        username: 'Current User',
-        ...newReview,
-        date: new Date().toISOString()
-      };
-      setReviews([newReviewItem, ...reviews]);
-      setNewReview({ rating: 5, comment: '', image: null });
+      console.error('Error fetching reviews:', error);
     }
   };
 
-  const StarRating = ({ rating, onRatingChange }) => {
-    return (
-      <div className="star-rating">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <span
-            key={star}
-            className={`star ${star <= rating ? 'filled' : ''}`}
-            onClick={() => onRatingChange && onRatingChange(star)}
-          >
-            ★
-          </span>
-        ))}
-      </div>
-    );
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const review = { Description, userId };
+
+    console.log('Submitting review:', review);
+
+    try {
+      if (editId) {
+        await axios.put(`http://localhost:5000/api/reviews/${editId}`, review);
+        setEditId(null);
+      } else {
+        await axios.post('http://localhost:5000/api/reviews', review);
+      }
+      setDescription('');
+      fetchReviews();
+    } catch (error) {
+      console.error('Error submitting review:', error.response ? error.response.data : error.message);
+    }
+  };
+
+  const handleEdit = (review) => {
+    setDescription(review.Description);
+    setEditId(review.id);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/reviews/${id}`);
+      fetchReviews();
+    } catch (error) {
+      console.error('Error deleting review:', error.response ? error.response.data : error.message);
+    }
   };
 
   return (
-    <>
-      <Navbar />
-      <div className="review-container">
-        <div className="review-header-section">
-          {recipeId && (
-            <button
-              className="back-button"
-              onClick={() => navigate(`/recipe/${recipeId}`)}
-            >
-              ← Back to Recipe
-            </button>
-          )}
-          <h2>Reviews {recipeName ? `for ${recipeName}` : ''}</h2>
-        </div>
-        
-        {/* Review Form */}
-        <form onSubmit={handleSubmitReview} className="review-form">
-          <h3>Write a Review</h3>
-          <StarRating 
-            rating={newReview.rating} 
-            onRatingChange={(rating) => setNewReview({...newReview, rating})}
-          />
-          <textarea
-            value={newReview.comment}
-            onChange={(e) => setNewReview({...newReview, comment: e.target.value})}
-            placeholder="Write your review here..."
-            required
-          />
-          <button type="submit">Submit Review</button>
-        </form>
+    <div>
+      <h1>Reviews</h1>
+      <form onSubmit={handleSubmit}>
+        <textarea
+          placeholder="Write your review..."
+          value={Description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+        />
+        <button className='btn' type="submit">{editId ? 'Update' : 'Add'} Review</button>
+      </form>
 
-        {/* Sort Controls */}
-        <div className="sort-controls">
-          <select 
-            value={sortBy} 
-            onChange={(e) => setSortBy(e.target.value)}
-          >
-            <option value="newest">Newest First</option>
-            <option value="highest">Highest Rated</option>
-            <option value="lowest">Lowest Rated</option>
-          </select>
-        </div>
+      <ul>
+        {Array.isArray(reviews) && reviews.map((review) => (
+          <li key={review.id} className="review-item">
+            <p>{review.Description}</p>
+            <button className='edit' onClick={() => handleEdit(review)}>Edit</button>
+            <button className='delete' onClick={() => handleDelete(review.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
 
-        {/* Reviews List */}
-        <div className="reviews-list">
-          {reviews.map((review) => (
-            <div key={review.id} className="review-item">
-              <div className="review-header">
-                <span className="username">{review.username}</span>
-                <StarRating rating={review.rating} />
-                <span className="date">
-                  {new Date(review.date).toLocaleDateString()}
-                </span>
-              </div>
-              <p className="review-comment">{review.comment}</p>
-              {review.image && (
-                <img src={review.image} alt="Review" className="review-image" />
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    </>
+      <style jsx>{`
+        div {
+          font-family: Arial, sans-serif;
+          padding: 20px;
+        }
+
+        h1 {
+          text-align: center;
+        }
+
+        form {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 20px;
+        }
+
+        textarea {
+          padding: 15px; /* Increased padding for larger text area */
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          min-height: 150px; /* Increased height */
+          width: 100%; /* Ensure it takes the full width of the container */
+          max-width: 600px; /* Set a max width for better control */
+          font-size: 16px; /* Larger font size for placeholder and content */
+        }
+
+        button {
+          padding: 4px 8px; /* Smaller padding */
+          font-size: 12px; /* Smaller font size */
+          width: 120px; /* Set a fixed width for the button */
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          margin-bottom: 10px;
+          display: inline-block; /* Prevent stretching */
+          text-align: center; /* Center the text inside the button */
+        }
+
+        button:hover {
+          background-color: #45a049;
+        }
+
+        .review-item {
+          padding: 10px;
+          border: 1px solid #ddd;
+          margin-bottom: 10px;
+          border-radius: 4px;
+        }
+
+        .edit, .delete {
+          padding: 4px 8px; /* Smaller padding */
+          font-size: 12px; /* Smaller font size */
+          margin-right: 5px;
+          border: none;
+          cursor: pointer;
+          border-radius: 4px;
+          display: inline-block; /* Prevent stretching */
+        }
+
+        .edit {
+          background-color: #ffa500;
+        }
+
+        .delete {
+          background-color: #f44336;
+        }
+
+        .edit:hover {
+          background-color: #e68a00;
+        }
+
+        .delete:hover {
+          background-color: #e60000;
+        }
+      `}</style>
+    </div>
   );
 };
 
