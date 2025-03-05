@@ -11,8 +11,8 @@ const Navbar = () => {
       <div className="nav-description">
         <Link to="/home">Home</Link>
         <Link to="/about">About Us</Link>
-        <Link to="/recipe/:id">Recipes</Link>
-        <div className="contact"><a href="#contactUs">Contact Us</a></div>
+        <Link to="/recipe">Recipes</Link>
+        <Link to="/reviews">Reviews</Link>
         <div className="profile">
           <Link to="/">
             <FaUser />

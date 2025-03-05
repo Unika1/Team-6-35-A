@@ -18,13 +18,21 @@ const Login = () => {
         password
       });
 
-      localStorage.setItem('token', response.data.token);
+      const { token, user } = response.data;
+      localStorage.setItem('token', token);
+      localStorage.setItem("role", user.role);
 
-      alert("Login successful! Redirecting to the homepage...");
-      navigate("/home");  
+      alert("Login successful!");
+
+      if (user.role === "admin") {
+        navigate("/admin");  
+      } else {
+        navigate("/home");
+      }
+      
     } catch (error) {
-      setError(error.response?.data?.message || "An error occurred, please try again.");
-      alert(error.response?.data?.message || "Invalid credentials, please try again.");
+      setError(error.response?.data?.error || "An error occurred, please try again.");
+      alert(error.response?.data?.error || "Invalid credentials, please try again.");
     }
   };
 

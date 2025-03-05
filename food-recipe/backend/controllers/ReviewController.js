@@ -1,4 +1,3 @@
-Controller
 import Review from "../models/Review.js";
 
 // Get all reviews
@@ -29,8 +28,8 @@ export const getReviewById = async (req, res) => {
 // Create a new review
 export const createReview = async (req, res) => {
   try {
-    const {  rating, description } = req.body;
-    const newReview = await Review.create({  rating, description });
+    const { userId, recipeId, rating, comment } = req.body;
+    const newReview = await Review.create({ userId, recipeId, rating, comment });
     res.status(201).json(newReview);
   } catch (error) {
     console.error("Error creating review:", error);
