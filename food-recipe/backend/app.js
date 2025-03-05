@@ -4,7 +4,9 @@ import cors from "cors";
 import { sequelize, connection } from "./config/db.js"; 
 import recipeRoutes from "./routes/recipeRoute.js";
 import userRoutes from "./routes/userRoute.js";
+import reviewRoutes from "./routes/reviewRoutes.js"; 
 import path from "path"; 
+import Review from "./models/Review.js";
 
 dotenv.config();
 
@@ -25,6 +27,7 @@ app.use("/recipe_images", express.static(path.join(__dirname, "recipe_images")))
 // Routes
 app.use("/api/recipes", recipeRoutes); 
 app.use("/api/users", userRoutes);
+app.use("/api/reviews", reviewRoutes);
 
 // Sync database
 sequelize
