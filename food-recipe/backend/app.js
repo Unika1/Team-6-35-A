@@ -10,8 +10,12 @@ dotenv.config();
 
 const app = express();
 
-
-app.use(cors());
+// Middleware
+app.use(cors({
+  origin: 'http://localhost:5173', // Allow frontend access
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use(express.json());
 
@@ -22,6 +26,7 @@ app.use("/recipe_images", express.static(path.join(__dirname, "recipe_images")))
 app.use("/api/recipes", recipeRoutes); 
 app.use("/api/users", userRoutes);
 
+// Sync database
 sequelize
   .sync({ force: false }) 
   .then(() => console.log("Database Synced!"))
@@ -29,11 +34,12 @@ sequelize
 
 connection();
 
-
+// Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: "Something went wrong!" });
 });
 
+// Start the server
 const PORT = process.env.PORT || 5000; 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
