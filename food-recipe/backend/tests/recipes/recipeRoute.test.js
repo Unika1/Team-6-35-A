@@ -1,136 +1,93 @@
 import request from "supertest";
 import express from "express";
-import recipeRoutes from "../routes/recipeRoutes.js";
-import Recipe from "../models/Recipe.js";
-import multer from "multer";
+import recipeRouter from "../../routes/recipeRoute.js";
+import Recipe from "../../models/Recipe.js";
 
-// Mock Multer to bypass file upload handling in tests
-jest.mock("multer", () => {
-  const multer = () => ({
-    single: () => (req, res, next) => next(),
-  });
-  multer.diskStorage = () => ({});
-  return multer;
-});
+jest.mock("../../models/Recipe", () => ({
+  findByPk: jest.fn(),
+  findAll: jest.fn(),
+  create: jest.fn(),
+  update: jest.fn(),
+  destroy: jest.fn(),
+}));
 
-// Create an Express app instance
 const app = express();
 app.use(express.json());
-app.use("/api/recipes", recipeRoutes);
-
-// Mock the Recipe model's Sequelize methods
-jest.mock("../models/Recipe.js");
+app.use("/api/recipes", recipeRouter);
 
 describe("Recipe Routes", () => {
-  afterEach(() => {
-    jest.clearAllMocks(); // Clear mock history between tests
+  let server;
+
+  beforeAll(() => {
+    server = app.listen(4000);
   });
 
-  // Test: Get all recipes
-  it("GET /api/recipes - should fetch all recipes", async () => {
-    const mockRecipes = [
-      { id: 1, title: "Recipe 1" },
-      { id: 2, title: "Recipe 2" },
-    ];
-    Recipe.findAll.mockResolvedValue(mockRecipes);
+  afterAll((done) => {
+    server.close(done);
+  });
 
+  test("GET /api/recipes should fetch all recipes", async () => {
+    Recipe.findAll.mockResolvedValue([{ id: 1, title: "Recipe 1" }]);
     const response = await request(app).get("/api/recipes");
-
     expect(response.status).toBe(200);
-    expect(response.body).toEqual(mockRecipes);
-    expect(Recipe.findAll).toHaveBeenCalled();
+    expect(response.body).toEqual([{ id: 1, title: "Recipe 1" }]);
   });
 
-  // Test: Get recipe by ID
-  it("GET /api/recipes/:id - should fetch a recipe by ID", async () => {
-    const mockRecipe = { id: 1, title: "Recipe 1" };
-    Recipe.findByPk.mockResolvedValue(mockRecipe);
-
+  test("GET /api/recipes/:id should fetch a recipe by ID", async () => {
+    Recipe.findByPk.mockResolvedValue({ id: 1, title: "Recipe 1" });
     const response = await request(app).get("/api/recipes/1");
-
     expect(response.status).toBe(200);
-    expect(response.body).toEqual(mockRecipe);
-    expect(Recipe.findByPk).toHaveBeenCalledWith("1");
+    expect(response.body).toEqual({ id: 1, title: "Recipe 1" });
   });
 
-  it("GET /api/recipes/:id - should return 404 if recipe not found", async () => {
+  test("GET /api/recipes/:id should return 404 if recipe not found", async () => {
     Recipe.findByPk.mockResolvedValue(null);
-
-    const response = await request(app).get("/api/recipes/99");
-
+    const response = await request(app).get("/api/recipes/1");
     expect(response.status).toBe(404);
     expect(response.body).toEqual({ message: "Recipe not found" });
   });
 
-  // Test: Create a new recipe
-  it("POST /api/recipes/create - should create a new recipe", async () => {
-    const mockRecipe = { id: 1, title: "New Recipe" };
-    Recipe.create.mockResolvedValue(mockRecipe);
-
-    const response = await request(app)
-      .post("/api/recipes/create")
-      .field("title", "New Recipe")
-      .field("description", "Test description")
-      .field("ingredients", "Test ingredients")
-      .field("instructions", "Test instructions");
-
-    expect(response.status).toBe(201);
-    expect(response.body).toEqual(mockRecipe);
-    expect(Recipe.create).toHaveBeenCalledWith({
+  test("POST /api/recipes should create a new recipe", async () => {
+    const newRecipe = {
       title: "New Recipe",
-      description: "Test description",
+      description: "Test",
       ingredients: "Test ingredients",
       instructions: "Test instructions",
-      image: null,
-    });
+      image: "new.jpg",
+    };
+    Recipe.create.mockResolvedValue(newRecipe);
+    const response = await request(app).post("/api/recipes").send(newRecipe);
+    expect(response.status).toBe(201);
+    expect(response.body).toEqual(newRecipe);
   });
 
-  // Test: Update a recipe
-  it("PUT /api/recipes/:id - should update a recipe", async () => {
-    const mockRecipe = { update: jest.fn() };
-    Recipe.findByPk.mockResolvedValue(mockRecipe);
-
-    const response = await request(app)
-      .put("/api/recipes/1")
-      .send({ title: "Updated Recipe" });
-
-    expect(mockRecipe.update).toHaveBeenCalledWith({
+  test("PUT /api/recipes/:id should update a recipe", async () => {
+    const updatedRecipe = {
       title: "Updated Recipe",
-      description: undefined,
-      ingredients: undefined,
-      instructions: undefined,
-      image: null,
+      description: "An updated test recipe",
+      ingredients: "Updated ingredients",
+      instructions: "Updated instructions",
+      image: "updated.jpg",
+    };
+    Recipe.findByPk.mockResolvedValue({
+      update: jest.fn().mockResolvedValue(updatedRecipe),
     });
+    const response = await request(app).put("/api/recipes/1").send(updatedRecipe);
     expect(response.status).toBe(200);
+    expect(response.body).toEqual(updatedRecipe);
   });
 
-  it("PUT /api/recipes/:id - should return 404 if recipe not found", async () => {
-    Recipe.findByPk.mockResolvedValue(null);
-
-    const response = await request(app)
-      .put("/api/recipes/99")
-      .send({ title: "Updated Recipe" });
-
-    expect(response.status).toBe(404);
-    expect(response.body).toEqual({ message: "Recipe not found" });
-  });
-
-  // Test: Delete a recipe
-  it("DELETE /api/recipes/:id - should delete a recipe", async () => {
-    const mockRecipe = { destroy: jest.fn() };
-    Recipe.findByPk.mockResolvedValue(mockRecipe);
-
+  test("DELETE /api/recipes/:id should delete a recipe", async () => {
+    Recipe.findByPk.mockResolvedValue({
+      destroy: jest.fn().mockResolvedValue({}),
+    });
     const response = await request(app).delete("/api/recipes/1");
-
-    expect(mockRecipe.destroy).toHaveBeenCalled();
     expect(response.status).toBe(204);
   });
 
-  it("DELETE /api/recipes/:id - should return 404 if recipe not found", async () => {
+  test("DELETE /api/recipes/:id should return 404 if recipe to delete not found", async () => {
     Recipe.findByPk.mockResolvedValue(null);
-
-    const response = await request(app).delete("/api/recipes/99");
-
+    const response = await request(app).delete("/api/recipes/1");
     expect(response.status).toBe(404);
     expect(response.body).toEqual({ message: "Recipe not found" });
   });

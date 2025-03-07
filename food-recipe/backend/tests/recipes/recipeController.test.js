@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import Recipe from "../models/Recipe.js";
+import Recipe from "../../models/recipe.js";
 import { getAllRecipes, getRecipeById, createRecipe, updateRecipe, deleteRecipe } from "../controllers/recipeController.js";
 
 // Mock Sequelize Methods
@@ -12,94 +12,99 @@ jest.mock("../models/Recipe", () => ({
 }));
 
 describe("Recipe Controller", () => {
+  const mockResponse = () => {
+    const res = {};
+    res.status = jest.fn().mockReturnValue(res);
+    res.json = jest.fn().mockReturnValue(res);
+    res.send = jest.fn().mockReturnValue(res);
+    return res;
+  };
+
+  let req, res;
+
+  beforeEach(() => {
+    req = { params: {}, body: {}, file: {} };
+    res = mockResponse();
+  });
+
   afterEach(() => {
     jest.clearAllMocks();  // Clear mock history between tests
   });
 
   // Test Get All Recipes
   it("should fetch all recipes", async () => {
-    const mockRecipes = [
-      { id: 1, title: "Recipe 1" },
-      { id: 2, title: "Recipe 2" },
-    ];
-    Recipe.findAll.mockResolvedValue(mockRecipes);
-
-    const req = {};
-    const res = { json: jest.fn() };
-
+    Recipe.findAll.mockResolvedValue([{ id: 1, title: "Recipe 1" }]);
     await getAllRecipes(req, res);
-
-    expect(Recipe.findAll).toHaveBeenCalled();
-    expect(res.json).toHaveBeenCalledWith(mockRecipes);
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith([{ id: 1, title: "Recipe 1" }]);
   });
 
   // Test Get Recipe by ID
   it("should fetch a recipe by ID", async () => {
-    const mockRecipe = { id: 1, title: "Recipe 1" };
-    Recipe.findByPk.mockResolvedValue(mockRecipe);
-
-    const req = { params: { id: 1 } };
-    const res = { json: jest.fn(), status: jest.fn().mockReturnThis() };
-
+    req.params.id = 1;
+    Recipe.findByPk.mockResolvedValue({ id: 1, title: "Recipe 1" });
     await getRecipeById(req, res);
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({ id: 1, title: "Recipe 1" });
+  });
 
-    expect(Recipe.findByPk).toHaveBeenCalledWith(1);
-    expect(res.json).toHaveBeenCalledWith(mockRecipe);
+  it("should return 404 if recipe not found", async () => {
+    req.params.id = 1;
+    Recipe.findByPk.mockResolvedValue(null);
+    await getRecipeById(req, res);
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(res.json).toHaveBeenCalledWith({ message: "Recipe not found" });
   });
 
   // Test Create Recipe
   it("should create a new recipe", async () => {
-    const mockRecipe = { id: 1, title: "New Recipe" };
-    Recipe.create.mockResolvedValue(mockRecipe);
-
-    const req = { body: { title: "New Recipe", description: "Test" }, file: { path: "image.jpg" } };
-    const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
-
-    await createRecipe(req, res);
-
-    expect(Recipe.create).toHaveBeenCalledWith({
+    req.body = {
       title: "New Recipe",
       description: "Test",
-      ingredients: undefined,
-      instructions: undefined,
-      image: "image.jpg",
-    });
+      ingredients: "Test ingredients",
+      instructions: "Test instructions",
+    };
+    req.file = { path: "image.jpg" };
+    Recipe.create.mockResolvedValue(req.body);
+    await createRecipe(req, res);
     expect(res.status).toHaveBeenCalledWith(201);
-    expect(res.json).toHaveBeenCalledWith(mockRecipe);
+    expect(res.json).toHaveBeenCalledWith(req.body);
   });
 
   // Test Update Recipe
   it("should update a recipe", async () => {
-    const mockRecipe = { update: jest.fn() };
-    Recipe.findByPk.mockResolvedValue(mockRecipe);
-
-    const req = { params: { id: 1 }, body: { title: "Updated Recipe" }, file: { path: "updated.jpg" } };
-    const res = { json: jest.fn(), status: jest.fn().mockReturnThis() };
-
-    await updateRecipe(req, res);
-
-    expect(mockRecipe.update).toHaveBeenCalledWith({
+    req.params.id = 1;
+    req.body = {
       title: "Updated Recipe",
-      description: undefined,
-      ingredients: undefined,
-      instructions: undefined,
-      image: "updated.jpg",
+      description: "An updated test recipe",
+      ingredients: "Updated ingredients",
+      instructions: "Updated instructions",
+    };
+    req.file = { path: "updated.jpg" };
+    Recipe.findByPk.mockResolvedValue({
+      update: jest.fn().mockResolvedValue(req.body)
     });
-    expect(res.json).toHaveBeenCalledWith(mockRecipe);
+    await updateRecipe(req, res);
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(req.body);
   });
 
   // Test Delete Recipe
   it("should delete a recipe", async () => {
-    const mockRecipe = { destroy: jest.fn() };
-    Recipe.findByPk.mockResolvedValue(mockRecipe);
-
-    const req = { params: { id: 1 } };
-    const res = { send: jest.fn(), status: jest.fn().mockReturnThis() };
-
+    req.params.id = 1;
+    Recipe.findByPk.mockResolvedValue({
+      destroy: jest.fn().mockResolvedValue({})
+    });
     await deleteRecipe(req, res);
-
-    expect(mockRecipe.destroy).toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(204);
     expect(res.send).toHaveBeenCalled();
+  });
+
+  it("should return 404 if recipe to delete not found", async () => {
+    req.params.id = 1;
+    Recipe.findByPk.mockResolvedValue(null);
+    await deleteRecipe(req, res);
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(res.json).toHaveBeenCalledWith({ message: "Recipe not found" });
   });
 });

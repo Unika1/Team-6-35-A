@@ -1,38 +1,51 @@
-const request = require("supertest");
-const app = require("../server");  // Make sure this path is correct
+import jwt from "jsonwebtoken";
+import request from "supertest";
+import express from "express";
+import securityMiddleware from "../../middleware/securityMiddleware.js";
 
-describe("Security Tests", () => {
+jest.mock("jsonwebtoken", () => ({
+  verify: jest.fn(),
+}));
 
-  // 🛡️ Test: Prevent SQL Injection
-  it("should prevent SQL Injection", async () => {
-    const res = await request(app)
-      .post("/api/products/create_product")
-      .send({
-        productName: "' OR 1=1 --",
-        price: 99.99,
-        description: "Hacked"
-      });
-    expect(res.status).toBe(400);  // Assuming your validation returns 400 for invalid inputs
-    expect(res.body.message).toBe("Invalid input data");  // Customize based on your error response
+const app = express();
+app.use(express.json());
+app.use(securityMiddleware);
+
+app.get("/protected", (req, res) => {
+  res.status(200).json({ message: "Protected route accessed" });
+});
+
+describe("Security Middleware", () => {
+  it("should allow access with a valid token", async () => {
+    jwt.verify.mockImplementation((token, secret, callback) => {
+      callback(null, { id: 1, username: "testuser" });
+    });
+
+    const response = await request(app)
+      .get("/protected")
+      .set("Authorization", "Bearer validtoken");
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ message: "Protected route accessed" });
   });
 
-  // 🛡️ Test: Prevent XSS Attacks
-  it("should prevent XSS attacks", async () => {
-    const res = await request(app)
-      .post("/api/products/create_product")
-      .send({
-        productName: "<script>alert('XSS')</script>",
-        price: 99.99,
-        description: "XSS Test"
-      });
-    expect(res.status).toBe(400);  // Assuming your validation returns 400 for invalid inputs
-    expect(res.body.message).toBe("Invalid input data");  // Customize based on your error response
+  it("should deny access with an invalid token", async () => {
+    jwt.verify.mockImplementation((token, secret, callback) => {
+      callback(new Error("Invalid token"));
+    });
+
+    const response = await request(app)
+      .get("/protected")
+      .set("Authorization", "Bearer invalidtoken");
+
+    expect(response.status).toBe(403);
+    expect(response.body).toEqual({ message: "Invalid or expired token" });
   });
 
-  // 🛡️ Test: Handle Unknown Routes
-  it("should return 404 for unknown routes", async () => {
-    const res = await request(app).get("/api/unknown");
-    expect(res.status).toBe(404);
-    expect(res.body.message).toBe("Not Found");  // Customize based on your error response
+  it("should deny access if no token is provided", async () => {
+    const response = await request(app).get("/protected");
+
+    expect(response.status).toBe(401);
+    expect(response.body).toEqual({ message: "Access denied: No token provided" });
   });
 });

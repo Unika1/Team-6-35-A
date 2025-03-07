@@ -18,4 +18,28 @@ const Review = sequelize.define('Review', {
     timestamps: true
 });
 
-export default Review;
+export default Review;import SequelizeMock from "sequelize-mock";
+const dbMock = new SequelizeMock();
+
+const ReviewMock = dbMock.define("Review", {
+  userId: 1,
+  description: "This is a test review",
+}, {
+  timestamps: true,
+});
+
+describe("Review Model", () => {
+  it("should create a review", async () => {
+    const review = await ReviewMock.create({
+      userId: 1,
+      description: "This is a test review",
+    });
+
+    expect(review.userId).toBe(1);
+    expect(review.description).toBe("This is a test review");
+  });
+
+  it("should require a userId and description", async () => {
+    await expect(ReviewMock.create({})).rejects.toThrow();
+  });
+});
